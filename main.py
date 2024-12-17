@@ -1,6 +1,6 @@
 import requests
 #import time
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 
 app = FastAPI()
 my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"
@@ -11,7 +11,7 @@ async def root():
 
 
 @app.get("/bot")
-async def bot(request):
+async def bot(request: Request):
     #if request.ok:
         #message = await request.json()
         # requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',

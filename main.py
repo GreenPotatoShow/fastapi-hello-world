@@ -10,7 +10,7 @@ while True:
     source = requests.get(f'http://greenpotato.alwaysdata.net/')
     if source.ok:
         message=source.json()
-        print(message["update_id"])
+        #print(message["update_id"])
         if "photo" in message['message']:
             pic_path = requests.get(f'https://api.telegram.org/bot{my_token}/getFile', params={"file_id": message["message"]['photo'][-1]["file_id"]})
             pic = requests.get(f'https://api.telegram.org/file/bot{my_token}/{pic_path.json()["result"]["file_path"]}')

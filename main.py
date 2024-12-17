@@ -14,7 +14,7 @@ async def root():
 async def bot(request: Request):
     if request.ok:
         message = await request.json()
-        requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
+        await requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
                         params = {
                             'chat_id': message["message"]["chat"]["id"],
                             'text': f'Привет'

@@ -27,7 +27,7 @@ while True:
                         files={'photo': buffered}
                         )
             print(pic)
-        else:
+        elif "update_id" in message:
             requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
                         params = {
                             'chat_id': message["message"]["chat"]["id"],

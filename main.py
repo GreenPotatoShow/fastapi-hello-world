@@ -20,7 +20,7 @@ async def bot(request):
         #                     'text': f'Привет'
         #                     }
         #                 )
-        return {"message": "agaga"}
+    return {"message": "agaga"}
 
 
 # my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"

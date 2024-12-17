@@ -12,8 +12,8 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/")
-async def mypage():
+@app.get("/mypage")
+async def qwerty():
     return {"message": "agaga"}
 
 

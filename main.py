@@ -12,7 +12,7 @@ async def root():
 
 @app.get("/bot")
 async def bot(request: Request):
-    if request.status == 200:
+    if request.ok:
         message = await request.json()
         requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
                         params = {

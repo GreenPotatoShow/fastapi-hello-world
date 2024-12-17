@@ -1,7 +1,5 @@
 import requests
-import time
-from PIL import Image
-from io import BytesIO
+#import time
 from fastapi import FastAPI
 
 app = FastAPI()

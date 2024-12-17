@@ -11,7 +11,7 @@ async def root():
 
 
 @app.get("/bot")
-async def bot():
+async def bot(request):
     #if request.ok:
         #message = await request.json()
         # requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',

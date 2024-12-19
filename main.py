@@ -15,7 +15,6 @@ async def sum_n_ones(n):
 async def root():
     return {"message": "Hello World"}
 
-
 @app.post("/bot/")
 async def bot(request: Request):
     message = await request.json()

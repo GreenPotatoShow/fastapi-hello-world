@@ -14,10 +14,11 @@ async def root():
 async def bot(request: Request):
     message = await request.json()
     chat_id=message["message"]["chat"]["id"]
+    user_name=message["message"]["chat"]["username"]
     requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
                     params = {
                         'chat_id': chat_id,
-                        'text': f'Привет'
+                        'text': f'Привет, {user_name}!'
                         }
                     )
     return message

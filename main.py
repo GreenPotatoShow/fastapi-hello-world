@@ -10,7 +10,7 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/bot")
+@app.get("/bot/")
 async def bot(request: Request):
     message = await request.body()
     # chat_id=message["message"]["chat"]["id"]

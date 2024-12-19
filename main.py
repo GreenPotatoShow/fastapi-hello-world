@@ -12,15 +12,15 @@ async def root():
 
 @app.get("/bot")
 async def bot(request: Request):
-    if request.query_params.get("error") != "true":
-        message = await request.json()
-    # requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
-    #                 params = {
-    #                     'chat_id': message["message"]["chat"]["id"],
-    #                     'text': f'Привет'
-    #                     }
-    #                 )
-    return {"message": "agaga"}
+    message = await request.json()
+    chat_id=message["message"]["chat"]["id"]
+    requests.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
+                    params = {
+                        'chat_id': chat_id,
+                        'text': f'Привет'
+                        }
+                    )
+    return {"status": "message sent"}
 
 
 # my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"

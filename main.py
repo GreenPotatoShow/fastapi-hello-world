@@ -30,7 +30,7 @@ async def bot(request: Request):
                     )
     else:
         n=int(text)
-        await result = sum_n_ones(n)
+        result = await sum_n_ones(n)
         async with httpx.AsyncClient() as client:
             await client.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
                         params = {

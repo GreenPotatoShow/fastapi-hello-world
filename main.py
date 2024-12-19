@@ -22,12 +22,13 @@ async def bot(request: Request):
     chat_id=message["message"]["chat"]["id"]
     text=message["message"]["text"]
     if re.findall(r'\D', text):
-        await client.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
-                    params = {
-                        'chat_id': chat_id,
-                        'text': f'Введите число n, а я посчитаю сумму 10^n единиц'
-                        }
-                    )
+        async with httpx.AsyncClient() as client:
+            await client.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
+                        params = {
+                            'chat_id': chat_id,
+                            'text': f'Введите число n, а я посчитаю сумму 10^n единиц'
+                            }
+                        )
     else:
         n=int(text)
         result = await sum_n_ones(n)

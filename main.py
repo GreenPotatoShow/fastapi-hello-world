@@ -44,15 +44,17 @@ async def root():
 @app.post("/bot/")
 async def bot(request: Request):
     message = await request.json()
-    chat_id=message["message"]["chat"]["id"]
-    text=message["message"]["text"]
-    async with httpx.AsyncClient() as client:
-            await client.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
-                        params = {
-                            'chat_id': chat_id,
-                            'text': f'Введите число n, а я посчитаю сумму 10^n единиц'
-                            }
-                        )
+    if "message" in message:
+        chat_id=message["message"]["chat"]["id"]
+        text=message["message"]["text"]
+        async with httpx.AsyncClient() as client:
+                await client.get(f'https://api.telegram.org/bot{my_token}/sendMessage',
+                            params = {
+                                'chat_id': chat_id,
+                                'text': f'Введите число n, а я посчитаю сумму 10^n единиц'
+                                }
+                            )
+    return message
 
 
 

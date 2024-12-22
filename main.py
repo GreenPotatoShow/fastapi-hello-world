@@ -1,11 +1,12 @@
 import re
 import httpx
-from asyncio import create_task
+from asyncio import get_event_loop
 from fastapi import FastAPI, Request
+from concurrent.futures import ThreadPoolExecutor
 
 app = FastAPI()
 my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"
-tasks = {}
+executor = ThreadPoolExecutor()
 
 
 async def sum_n_ones(n):
@@ -37,12 +38,8 @@ async def bot(request: Request):
     else:
         update_id=message["update_id"]
         n=int(text)
-        tasks[update_id]=create_task(sum_n_ones(n))
-        async def handle_result(update_id, chat_id):
-            result = await tasks[update_id]
-            await send_message(chat_id, f'Ответ: {result}')
-            del tasks[update_id]
-        create_task(handle_result(update_id, chat_id))
+        loop = get_event_loop()
+        result = await loop.run_in_executor(executor, sum_n_ones, n)
     return message
 
 

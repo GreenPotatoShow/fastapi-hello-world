@@ -1,6 +1,6 @@
 import re
 import httpx
-from asyncio import get_event_loop
+from asyncio import get_running_loop
 from fastapi import FastAPI, Request
 from concurrent.futures import ThreadPoolExecutor
 
@@ -9,7 +9,7 @@ my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"
 executor = ThreadPoolExecutor()
 
 
-async def sum_n_ones(n):
+def sum_n_ones(n):
     result=0
     for i in range(10**n):
         result+=1
@@ -36,10 +36,11 @@ async def bot(request: Request):
     if re.findall(r'\D', text):
         await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
     else:
-        update_id=message["update_id"]
         n=int(text)
-        loop = get_event_loop()
+        loop = get_running_loop()
         result = await loop.run_in_executor(executor, sum_n_ones, n)
+        await send_message(chat_id, f'Ответ: {result}')
+
     return message
 
 

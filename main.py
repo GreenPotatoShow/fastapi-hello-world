@@ -27,6 +27,11 @@ async def send_message(chat_id, text):
 async def root():
     return {"message": "Hello World"}
 
+@app.get("/bot/")
+async def bot():
+    for task in asyncio.all_tasks():
+        task.cancel()  # Отменяем задачу
+
 @app.post("/bot/")
 async def bot(request: Request):
     return {"message": "agaga"}

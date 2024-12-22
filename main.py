@@ -5,7 +5,9 @@ import asyncio
 
 app = FastAPI()
 my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"
-
+for task in asyncio.all_tasks():
+    task.cancel()  # Отменяем задачу
+    
 async def sum_n_ones(n):
     result=0
     for i in range(10**n):
@@ -30,20 +32,19 @@ async def bot(request: Request):
     message = await request.json()
     chat_id=message["message"]["chat"]["id"]
     text=message["message"]["text"]
-    await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
-#     if re.findall(r'\D', text):
-#         await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
-#     else:
-#         asyncio.create_task(send_result(chat_id, int(text)))
+    if re.findall(r'\D', text):
+        await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
+    else:
+        asyncio.create_task(send_result(chat_id, int(text)))
 
-#     return message
+    return message
 
-# async def send_result(chat_id, n):
-#     await send_message(chat_id, 'Сейчас вычислю...')
-#     result = await sum_n_ones(n)
-#     await send_message(chat_id, f'Ответ: {result}')
+async def send_result(chat_id, n):
+    await send_message(chat_id, 'Сейчас вычислю...')
+    result = await sum_n_ones(n)
+    await send_message(chat_id, f'Ответ: {result}')
 
-
+    
 # @app.post("/bot/")
 # async def bot(request: Request):
 #     message = await request.json()

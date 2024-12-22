@@ -30,17 +30,20 @@ async def bot(request: Request):
     message = await request.json()
     chat_id=message["message"]["chat"]["id"]
     text=message["message"]["text"]
-    if re.findall(r'\D', text):
-        await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
-    else:
-        asyncio.create_task(send_result(chat_id, int(text)))
+    await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
+#     if re.findall(r'\D', text):
+#         await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
+#     else:
+#         asyncio.create_task(send_result(chat_id, int(text)))
 
-    return message
+#     return message
 
-async def send_result(chat_id, n):
-    await send_message(chat_id, 'Сейчас вычислю...')
-    result = await sum_n_ones(n)
-    await send_message(chat_id, f'Ответ: {result}')
+# async def send_result(chat_id, n):
+#     await send_message(chat_id, 'Сейчас вычислю...')
+#     result = await sum_n_ones(n)
+#     await send_message(chat_id, f'Ответ: {result}')
+
+
 # @app.post("/bot/")
 # async def bot(request: Request):
 #     message = await request.json()

@@ -38,9 +38,11 @@ async def bot(request: Request):
         update_id=message["update_id"]
         n=int(text)
         tasks[update_id]=create_task(sum_n_ones(n))
-        result = await tasks[update_id]
-        await send_message(chat_id,f'Ответ: {result}')
-        del tasks[update_id]
+        async def handle_result(update_id, chat_id):
+            result = await tasks[update_id]
+            await send_message(chat_id, f'Ответ: {result}')
+            del tasks[update_id]
+        create_task(handle_result(update_id, chat_id))
     return message
 
 

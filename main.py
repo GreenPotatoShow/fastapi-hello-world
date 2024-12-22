@@ -30,11 +30,11 @@ async def bot(request: Request):
     chat_id=message["message"]["chat"]["id"]
     text=message["message"]["text"]
     if re.findall(r'\D', text):
-        send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
+        await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
     else:
         n=int(text)
         result = await sum_n_ones(n)
-        send_message(chat_id,f'Ответ: {result}')
+        await send_message(chat_id,f'Ответ: {result}')
     return message
 
 

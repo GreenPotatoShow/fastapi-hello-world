@@ -1,9 +1,12 @@
 import re
 import httpx
+from asyncio import create_task
 from fastapi import FastAPI, Request
 
 app = FastAPI()
 my_token="7898884050:AAFkWzlGrlJ03pZ9dLUMh7nhZBR5xzucvWY"
+tasks = {}
+
 
 async def sum_n_ones(n):
     result=0
@@ -32,9 +35,12 @@ async def bot(request: Request):
     if re.findall(r'\D', text):
         await send_message(chat_id,f'Введите число n, а я посчитаю сумму 10^n единиц')
     else:
+        update_id=message["update_id"]
         n=int(text)
-        result = await sum_n_ones(n)
+        tasks[update_id]=create_task(sum_n_ones(n))
+        result = await tasks[chat_id]
         await send_message(chat_id,f'Ответ: {result}')
+        del tasks[update_id]
     return message
 
 
